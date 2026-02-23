@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Portfolio</title>
+<style>
+/* ===== GLOBAL ===== */
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+html{scroll-behavior:smooth;}
+body{background-color:#121212;color:#e0e0e0;line-height:1.6;transition:background-color 0.8s,color 0.8s;}
+body.dynamic-bg{animation:bgChange 20s infinite alternate;}
+@keyframes bgChange{
+0%{background:#121212;}
+25%{background:#1a1a2e;}
+50%{background:#0f3460;}
+75%{background:#53354a;}
+100%{background:#1f1f1f;}
+}
+
+/* ===== NAVBAR ===== */
+.navbar{display:flex;justify-content:space-between;align-items:center;padding:15px 30px;background-color:#1f1f1f;position:sticky;top:0;z-index:1000;}
+.logo{color:#00bcd4;font-size:24px;font-weight:bold;}
+.nav-links{list-style:none;display:flex;}
+.nav-links li{margin-left:25px;}
+.nav-links a{text-decoration:none;color:#e0e0e0;position:relative;transition:0.3s;}
+.nav-links a::after{content:'';position:absolute;width:0%;height:2px;bottom:-3px;left:0;background:#00bcd4;transition:0.3s;}
+.nav-links a:hover::after{width:100%;}
+
+/* ===== SOCIAL LINKS ===== */
+.social-links{display:flex;gap:15px;margin-left:20px;}
+.social-links a{color:#e0e0e0;font-size:20px;text-decoration:none;transition:0.3s;}
+.social-links a:hover{color:#00bcd4;}
+
+/* ===== 3-DOT MENU ===== */
+.menu-btn{display:none;flex-direction:column;cursor:pointer;gap:5px;}
+.menu-btn .dot{width:8px;height:8px;background:#e0e0e0;border-radius:50%;}
+
+/* ===== DARK/LIGHT MODE ===== */
+.toggle-btn{margin-left:15px;cursor:pointer;font-size:20px;}
+body.light-mode{background:#f0f0f0;color:#121212;}
+body.light-mode .navbar{background:#e0e0e0;}
+body.light-mode .nav-links a{color:#121212;}
+body.light-mode .social-links a{color:#121212;}
+body.light-mode .card,.light-mode .others-box{background:#ddd;color:#121212;}
+
+/* ===== SECTIONS ===== */
+section{padding:80px 30px;text-align:center;opacity:0;transform:translateY(30px);transition:opacity 1s ease-out, transform 1s ease-out;}
+section.visible{opacity:1;transform:translateY(0);}
+h2{color:#00bcd4;margin-bottom:40px;}
+
+/* ===== HOME ===== */
+.home-container{display:flex;gap:50px;max-width:1000px;margin:auto;align-items:center;}
+.home-image img{width:300px;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,0.5);}
+.home-text h1{font-size:36px;margin-bottom:20px;color:#00bcd4;}
+.home-text p{font-size:18px;color:#ccc;}
+
+/* ===== GALLERY ===== */
+.gallery-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;max-width:1100px;margin:auto;}
+.card{background:#1f1f1f;padding:15px;border-radius:10px;transition:transform 0.4s, box-shadow 0.4s, opacity 1s;box-shadow:0 2px 8px rgba(0,0,0,0.3);}
+.card img{width:100%;border-radius:10px;}
+.card p{margin-top:10px;color:#ccc;}
+.card:hover{transform:translateY(-10px) scale(1.05);box-shadow:0 10px 20px rgba(0,0,0,0.5);}
+
+/* ===== OTHERS ===== */
+.others-container{display:flex;gap:30px;justify-content:center;flex-wrap:wrap;}
+.others-box{background:#1f1f1f;padding:20px;width:300px;border-radius:10px;transition:0.3s;}
+.others-box:hover{transform:scale(1.05);box-shadow:0 10px 20px rgba(0,0,0,0.5);}
+
+/* ===== FOOTER ===== */
+footer{background:#1f1f1f;color:#e0e0e0;padding:15px;text-align:center;}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+.menu-btn{display:flex;}
+.nav-links{display:none;flex-direction:column;margin-top:15px;background:#1f1f1f;border-radius:5px;padding:15px;width:90%;margin:auto;}
+.nav-links.active{display:flex;}
+.nav-links li{margin:10px 0;}
+.home-container{flex-direction:column;}
+.home-image img{width:220px;}
+.others-container{flex-direction:column;align-items:center;}
+.social-links{justify-content:center;margin-top:10px;}
+}
+</style>
+</head>
+<body class="dynamic-bg">
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+<div class="logo">MyPortfolio</div>
+
+<!-- 3-dot menu -->
+<div class="menu-btn" id="menu-btn">
+<div class="dot"></div>
+<div class="dot"></div>
+<div class="dot"></div>
+</div>
+
+<ul class="nav-links" id="nav-links">
+<li><a href="#home">Home</a></li>
+<li><a href="#personal">Personal Details</a></li>
+<li><a href="#others">Others</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+
+<!-- Social links -->
+<div class="social-links">
+<a href="https://facebook.com" target="_blank" title="Facebook">F</a>
+<a href="https://twitter.com" target="_blank" title="Twitter">T</a>
+<a href="https://instagram.com" target="_blank" title="Instagram">I</a>
+<a href="https://linkedin.com" target="_blank" title="LinkedIn">L</a>
+<a href="https://github.com" target="_blank" title="GitHub">G</a>
+</div>
+
+<!-- Dark/light toggle -->
+<div class="toggle-btn" id="toggle-btn">🌙</div>
+</nav>
+
+<!-- ===== HOME ===== -->
+<section id="home">
+<div class="home-container">
+<div class="home-image"><img src="https://via.placeholder.com/300" alt="My Photo"></div>
+<div class="home-text">
+<h1>Your Name</h1>
+<p>Hello! I am a passionate developer. Write a short intro here.</p>
+</div>
+</div>
+</section>
+
+<!-- ===== GALLERY ===== -->
+<section id="gallery">
+<h2>Gallery</h2>
+<div class="gallery-container">
+<div class="card"><img src="https://via.placeholder.com/250" alt=""><p>Image 1</p></div>
+<div class="card"><img src="https://via.placeholder.com/250" alt=""><p>Image 2</p></div>
+<div class="card"><img src="https://via.placeholder.com/250" alt=""><p>Image 3</p></div>
+<div class="card"><img src="https://via.placeholder.com/250" alt=""><p>Image 4</p></div>
+</div>
+</section>
+
+<!-- ===== PERSONAL ===== -->
+<section id="personal">
+<h2>Personal Details</h2>
+<p>Name: Your Name</p>
+<p>Age: 20</p>
+<p>Education: Your Education</p>
+<p>Skills: HTML, CSS, JS</p>
+</section>
+
+<!-- ===== OTHERS ===== -->
+<section id="others">
+<h2>Others</h2>
+<div class="others-container">
+<div class="others-box"><h3>Hobby</h3><p>Reading books</p></div>
+<div class="others-box"><h3>Experience</h3><p>Internship at XYZ</p></div>
+<div class="others-box"><h3>Future Plan</h3><p>Become a full-stack dev</p></div>
+</div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact">
+<h2>Contact</h2>
+<p>Email: your@email.com</p>
+<p>Phone: 0123456789</p>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>© 2026 Your Name | All Rights Reserved</footer>
+
+<script>
+// 3-dot menu toggle
+const menuBtn=document.getElementById('menu-btn');
+const navLinks=document.getElementById('nav-links');
+menuBtn.addEventListener('click',()=>{ navLinks.classList.toggle('active'); });
+
+// Dark/light toggle
+const toggleBtn=document.getElementById('toggle-btn');
+toggleBtn.addEventListener('click',()=>{
+document.body.classList.toggle('light-mode');
+toggleBtn.textContent=document.body.classList.contains('light-mode')?"🌞":"🌙";
+});
+
+// ===== SCROLL REVEAL =====
+const sections=document.querySelectorAll('section');
+function revealSections(){
+    const windowHeight=window.innerHeight;
+    sections.forEach(sec=>{
+        const secTop=sec.getBoundingClientRect().top;
+        if(secTop<windowHeight-100){
+            sec.classList.add('visible');
+        }
+    });
+}
+window.addEventListener('scroll',revealSections);
+window.addEventListener('load',revealSections);
+
+// ===== GALLERY ANIMATION ON LOAD =====
+const cards=document.querySelectorAll('.card');
+window.addEventListener('load',()=>{
+    cards.forEach((card,i)=>{ setTimeout(()=>{card.style.opacity='1'; card.style.transform='translateY(0)'; }, i*200); });
+});
+</script>
+
+</body>
+</html>
